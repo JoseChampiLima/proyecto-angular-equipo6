@@ -14,10 +14,6 @@ describe('App', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-  
-  it('debe fallar temporalmente para comprobar CI', () => {
-    expect(true).toBe(false);
-  });
   /* Se elimino esta prueba porque no se puede renderizar el titulo de la app, ya que el componente App no tiene un template asociado.
   it('should render title', async () => {
     const fixture = TestBed.createComponent(App);
