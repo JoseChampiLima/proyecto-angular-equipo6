@@ -1,6 +1,5 @@
 <section class="card">
   <header class="card__head">
-    <span class="badge">Nuevo usuario</span>
     <h1>Registro de usuario</h1>
     <p class="subtitle">Completa tus datos para crear tu cuenta.</p>
   </header>
@@ -14,7 +13,12 @@
         formControlName="nombre"
         placeholder="Ej. Ana Torres"
         autocomplete="name"
+        [class.is-invalid]="form.controls.nombre.touched && form.controls.nombre.invalid"
+        [attr.aria-invalid]="form.controls.nombre.touched && form.controls.nombre.invalid"
       />
+      @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+        <small class="error">Obligatorio, mínimo 3 caracteres.</small>
+      }
     </div>
 
     <div class="field">
@@ -25,12 +29,28 @@
         formControlName="correo"
         placeholder="tucorreo@ejemplo.com"
         autocomplete="email"
+        [class.is-invalid]="form.controls.correo.touched && form.controls.correo.invalid"
+        [attr.aria-invalid]="form.controls.correo.touched && form.controls.correo.invalid"
       />
+      @if (form.controls.correo.touched && form.controls.correo.invalid) {
+        <small class="error">Correo obligatorio y con formato válido.</small>
+      }
     </div>
 
     <div class="field">
       <label for="edad">Edad</label>
-      <input id="edad" type="number" formControlName="edad" placeholder="18" min="18" />
+      <input
+        id="edad"
+        type="number"
+        formControlName="edad"
+        placeholder="18"
+        min="18"
+        [class.is-invalid]="form.controls.edad.touched && form.controls.edad.invalid"
+        [attr.aria-invalid]="form.controls.edad.touched && form.controls.edad.invalid"
+      />
+      @if (form.controls.edad.touched && form.controls.edad.invalid) {
+        <small class="error">Obligatoria, mínimo 18 años.</small>
+      }
     </div>
 
     <div class="field">
@@ -41,10 +61,15 @@
         formControlName="password"
         placeholder="Mínimo 8 caracteres"
         autocomplete="new-password"
+        [class.is-invalid]="form.controls.password.touched && form.controls.password.invalid"
+        [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
       />
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <small class="error">Obligatoria, mínimo 8 caracteres.</small>
+      }
     </div>
 
-    <button type="submit">Registrar</button>
+    <button type="submit" [disabled]="form.invalid">Registrar</button>
   </form>
 
   @if (enviado) {

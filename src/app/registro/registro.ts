@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+ 
 @Component({
   selector: 'app-registro',
   standalone: true,
@@ -11,15 +11,19 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 export class Registro {
   private fb = inject(FormBuilder);
   enviado = false;
-
+ 
   form = this.fb.group({
-    nombre: [''],
-    correo: [''],
-    edad: [null as number | null],
-    password: [''],
+    nombre: ['', [Validators.required, Validators.minLength(3)]],
+    correo: ['', [Validators.required, Validators.email]],
+    edad: [null as number | null, [Validators.required, Validators.min(18)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
   });
-
+ 
   onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
     this.enviado = true;
   }
 }
