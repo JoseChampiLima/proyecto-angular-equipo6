@@ -34,3 +34,26 @@ jobs:
         with:
           name: dist-angular
           path: dist/registro-app/browser
+
+  deploy:
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar build
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-angular
+          path: dist-angular
+
+      - name: Desplegar por FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./dist-angular/
+          server-dir: ${{ secrets.FTP_DIR }}
+          retries: 3
+          retryDelay: 10
