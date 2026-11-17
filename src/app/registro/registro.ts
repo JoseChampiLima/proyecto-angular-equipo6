@@ -14,7 +14,9 @@ export class Registro {
  
   form = this.fb.group({
     nombre: ['', [Validators.required, Validators.minLength(3)]],
-    correo: ['', [Validators.required, Validators.email]],
+    // Antes: correo: ['', [Validators.required, Validators.email]],
+    // Para la prueba cambia a:
+    correo: ['', [Validators.required]],
     edad: [null as number | null, [Validators.required, Validators.min(18)]],
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
